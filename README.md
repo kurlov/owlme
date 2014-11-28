@@ -27,3 +27,4 @@ Dillinger is currently extended with the following plugins
 * guess_language
 * flipflop
 * coverage
+* rauth
