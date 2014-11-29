@@ -24,8 +24,8 @@ OAUTH_CREDENTIALS = {
         'secret': 'm9TEd58DSEtRrZHpz2EjrV9AhsBRxKMo8m3kuIZj3zLwzwIimt'
     },
     'vkontakte':{
-        'id': 'tmp',
-        'secret': 'tmp'
+        'id': '3737542',
+        'secret': 'Sbg8NtCQdBht0mSoOiOG'
     }
 }
 

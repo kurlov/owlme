@@ -67,7 +67,34 @@ class TwitterSignIn(OAuthSignIn):
     pass
 
 class VkontakteSignIn(OAuthSignIn):
-    pass
+    def __init__(self):
+        super(VkontakteSignIn, self).__init__('vkontakte')
+        self.service = OAuth2Service(
+            name='vkontakte',
+            client_id=self.consumer_id,
+            client_secret=self.consumer_secret,
+            authorize_url='https://oauth.vk.com/authorize',
+            access_token_url='https://oauth.vk.com/access_token',
+            base_url='https://oauth.vk.com/'
+        )
+
+    def authorize(self):
+        request_token = self.service.get_request_token(
+            params={'oauth_callback': self.get_callback_url()}
+        )
+        session['request_token'] = request_token
+        return credits(self.service.get_authorize_url(request_token[0]))
+
+    def callback(self):
+        if 'code' not in request.args:
+            return None, None, None
+        oauth_session = self.service.get_auth_session(
+            data={'code': request.args['code'],
+                  'grant_type': 'authorization_code',
+                  'redirect_uri': self.get_callback_url()}
+        )
+        me = oauth_session.get('me').json()
+        return me
 
 class GoogleSignIn(OAuthSignIn):
     pass
