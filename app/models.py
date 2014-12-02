@@ -2,7 +2,7 @@ from app import db, lm
 from flask.ext.login import UserMixin
 
 
-class User(db.Model, UserMixin):
+class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
     social_id = db.Column(db.String(64), nullable=False, unique=True)   # ids for OAuth
     nickname = db.Column(db.String(64), index=True, unique=True)

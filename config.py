@@ -15,15 +15,15 @@ OPENID_PROVIDERS = [
     {'name': 'MyOpenID', 'url': 'https://www.myopenid.com'}]
 
 OAUTH_CREDENTIALS = {
-    'facebook':{
+    'facebook': {
         'id': '470154729788964',
         'secret': '010cc08bd4f51e34f3f3e684fbdea8a7'
     },
-    'twitter':{
+    'twitter': {
         'id': '3RzWQclolxWZIMq5LJqzRZPTl',
         'secret': 'm9TEd58DSEtRrZHpz2EjrV9AhsBRxKMo8m3kuIZj3zLwzwIimt'
     },
-    'vkontakte':{
+    'vkontakte': {
         'id': '3737542',
         'secret': 'Sbg8NtCQdBht0mSoOiOG'
     }
