@@ -5,7 +5,6 @@ from app.oauth import OAuthSignIn
 from flask import render_template, flash, redirect, g, url_for, session, request
 from flask.ext.login import login_user, current_user, logout_user
 
-
 @app.route('/')
 @app.route('/index')
 def index():
@@ -84,4 +83,3 @@ def after_login(resp):
         session.pop('remember_me', None)
     login_user(user, remember = remember_me)
     return redirect(request.args.get('next') or url_for('index'))
-

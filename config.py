@@ -16,16 +16,16 @@ OPENID_PROVIDERS = [
 
 OAUTH_CREDENTIALS = {
     'facebook': {
-        'id': '470154729788964',
-        'secret': '010cc08bd4f51e34f3f3e684fbdea8a7'
+        'id': '1578641885698624',
+        'secret': '7568929e0d956a654c92fa23b9ed277f'
     },
     'twitter': {
         'id': '3RzWQclolxWZIMq5LJqzRZPTl',
         'secret': 'm9TEd58DSEtRrZHpz2EjrV9AhsBRxKMo8m3kuIZj3zLwzwIimt'
     },
     'vkontakte': {
-        'id': '3737542',
-        'secret': 'Sbg8NtCQdBht0mSoOiOG'
+        'id': '4661519',
+        'secret': 'QcPeNSfyzb2iqp5qv6KG'
     }
 }
 
