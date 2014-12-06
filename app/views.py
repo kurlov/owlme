@@ -48,7 +48,7 @@ def oauth_callback(provider):
         db.session.add(user)
         db.session.commit()
     login_user(user, True)
-    return redirect(url_for('index'))
+    return redirect(url_for('user', nickname=g.user.nickname))
 
 @lm.user_loader
 def load_user(id):
