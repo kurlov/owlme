@@ -101,8 +101,6 @@ class FacebookSignIn(OAuthSignIn):
             me.get('email')
         )
 
-
-
 class VkontakteSignIn(OAuthSignIn):
     def __init__(self):
         super(VkontakteSignIn, self).__init__('vkontakte')
@@ -140,5 +138,38 @@ class VkontakteSignIn(OAuthSignIn):
         )
 
 class GoogleSignIn(OAuthSignIn):
-    pass
+    def __init__(self):
+        super(GoogleSignIn, self).__init__('google')
+        self.service = OAuth2Service(
+            name='google',
+            client_id=self.consumer_id,
+            client_secret=self.consumer_secret,
+            authorize_url='https://accounts.google.com/o/oauth2/auth',
+            access_token_url='https://accounts.google.com/o/oauth2/token',
+            base_url='https://www.googleapis.com/oauth2/v1/'
+        )
+
+    def authorize(self):
+        return redirect(self.service.get_authorize_url(
+            scope='email',
+            response_type='code',
+            redirect_uri=self.get_callback_url())
+        )
+
+    def callback(self):
+        if 'code' not in request.args:
+            return None, None, None
+        resp = self.service.get_raw_access_token(
+            data={'code': request.args['code'],
+                  'grant_type': 'authorization_code',
+                  'redirect_uri': self.get_callback_url()}
+        )
+        resp = resp.json()
+        oauth_session = self.service.get_session(resp['access_token'])
+        me = oauth_session.get('https://www.googleapis.com/oauth2/v2/userinfo').json()
+        return (
+            'google$' + me['id'],
+            me.get('name'),
+            me.get('email')
+        )
 

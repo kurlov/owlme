@@ -3,7 +3,6 @@ from flask.ext.login import UserMixin
 
 
 class User(UserMixin, db.Model):
-    __tablename__ = 'users'
     id = db.Column(db.Integer, primary_key=True)
     social_id = db.Column(db.String(64), nullable=False, unique=True)   # ids for OAuth
     nickname = db.Column(db.String(64), index=True, unique=True)

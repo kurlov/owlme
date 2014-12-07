@@ -26,6 +26,10 @@ OAUTH_CREDENTIALS = {
     'vkontakte': {
         'id': '4661519',
         'secret': 'QcPeNSfyzb2iqp5qv6KG'
+    },
+    'google': {
+            'id' : '995429479325-brvpv6fmp16kismlj5el5krjia6cp7va.apps.googleusercontent.com',
+            'secret': 'NjcPpYnyVODZ9tS8ozxV_bUz'
     }
 }
 
