@@ -123,18 +123,20 @@ class VkontakteSignIn(OAuthSignIn):
     def callback(self):
         if 'code' not in request.args:
             return None, None, None
-        oauth_session = self.service.get_auth_session(
+        resp = self.service.get_raw_access_token(
             data={'code': request.args['code'],
                   'grant_type': 'authorization_code',
                   'redirect_uri': self.get_callback_url()}
         )
-        me = oauth_session.get('me').json()
+        resp = resp.json()
+        oauth_session = self.service.get_session(resp['access_token'])
+        uid = resp['user_id']
+        email = resp['email']
+        me = oauth_session.get('https://api.vk.com/method/getProfiles', params={'uid': uid}).json()['response'][0]
         return (
-            'vkontakte$' + me['user_id'],
-            me.get('email').split('@')[0],  # Facebook does not provide
-                                            # username, so the email's user
-                                            # is used instead
-            me.get('email')
+            'vkontakte$' + str(uid),
+            me.get('first_name') + ' ' + me.get('last_name'),
+            email
         )
 
 class GoogleSignIn(OAuthSignIn):
