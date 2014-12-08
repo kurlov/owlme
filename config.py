@@ -20,8 +20,8 @@ OAUTH_CREDENTIALS = {
         'secret': '7568929e0d956a654c92fa23b9ed277f'
     },
     'twitter': {
-        'id': '3RzWQclolxWZIMq5LJqzRZPTl',
-        'secret': 'm9TEd58DSEtRrZHpz2EjrV9AhsBRxKMo8m3kuIZj3zLwzwIimt'
+        'id': 'AipExyBDMu3NoejXmPw32iKDU',
+        'secret': 'eiIT5CtHCSle0I9IupORzLlIU7uNf81thkWKYznBUBKHY01rWF'
     },
     'vkontakte': {
         'id': '4661519',
