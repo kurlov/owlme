@@ -1,6 +1,6 @@
 from app import app, db, lm, oid
 from app.forms import LoginForm
-from app.models import User, Trusted
+from app.models import User, Trusted, Post
 from app.oauth import OAuthSignIn
 from flask import render_template, flash, redirect, g, url_for, session, request
 from flask.ext.login import login_user, current_user, logout_user, login_required
@@ -74,12 +74,14 @@ def before_request():
 @login_required
 def user(nickname):
     user = User.query.filter_by(nickname=nickname).first()
+    posts = Post.query.all()
     if user == None:
         flash('User %s not found.' % nickname)
         return redirect(url_for('index'))
 
     return render_template('user.html',
-                           user=user)
+                           user=user,
+                           posts=posts)
 
 @oid.after_login
 def after_login(resp):
