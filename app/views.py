@@ -1,3 +1,4 @@
+from datetime import datetime
 from app import app, db, lm, oid
 from app.forms import LoginForm
 from app.models import User, Trusted, Post
@@ -69,6 +70,10 @@ def oauth_authorize(provider):
 @app.before_request
 def before_request():
     g.user = current_user
+    if g.user.is_authenticated():
+        g.user.last_seen = datetime.utcnow()
+        db.session.add(g.user)
+        db.session.commit()
 
 @app.route('/user/<nickname>')
 @login_required
