@@ -3,21 +3,27 @@
 
 {% block content %}
     <table>
-        <tr valign="top">
-            <td><img src="{{ user.avatar(128) }}"></td>
-            <td>
-            <h1>User: {{user.nickname}}</h1>
-            {% if user.about_me %}<p>{{ user.about_me }}</p>{% endif %}
-            {% if user.last_seen %}<p><i>Last seen on: {{ user.last_seen }}</i></p>{% endif %}
-            </td>
-        </tr>
+        <tr>
+              <td>Что у Вас нового?:</td>
+          </tr>
+          <tr>
+              <td>{{ form.text(cols=32, rows=4) }}</td>
+          </tr>
+          <tr>
+              <td></td>
+              <td><input type="submit" value="Post"></td>
+          </tr>
     </table>
     <hr>
     {% if posts %}
         {% for post in posts %}
             <table>
                 <tr valign="top">
+                    {% if post.author.avatar(50) %}
                     <td><img src="{{ post.author.avatar(50) }}"></td><td><i>{{ post.author.nickname }} says:</i><br>{{ post.body }}</td>
+                    {% else %}
+                    <td><img src="{{ url_for('.static', filename='images/default_avatar_50.png') }}"></td><td><i>{{ post.author.nickname }} says:</i><br>{{ post.body }}</td>
+                    {% endif %}
                 </tr>
             </table>
         {% endfor %}

@@ -1,6 +1,6 @@
 from datetime import datetime
 from app import app, db, lm, oid
-from app.forms import LoginForm, EditForm
+from app.forms import LoginForm, EditForm, PostForm
 from app.models import User, Trusted, Post
 from app.oauth import OAuthSignIn
 from flask import render_template, flash, redirect, g, url_for, session, request
@@ -107,6 +107,19 @@ def edit():
         form.nickname.data = g.user.nickname
         form.about_me.data = g.user.about_me
     return render_template('edit.html', form=form)
+
+@app.route('/news', methods=['GET', 'POST'])
+@login_required
+def news():
+    form = PostForm()
+    posts = Post.query.all()
+    if form.validate_on_submit():
+        post = Post(body=form.text, timestamp=datetime.utcnow(), user_id=g.user.id)
+        db.session.add(post)
+        db.session.commit()
+        flash('Your post has been posted .')
+        return redirect(url_for('news'))
+    return render_template('news.html', form=form, posts=posts)
 
 @oid.after_login
 def after_login(resp):
