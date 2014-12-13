@@ -1,6 +1,6 @@
 from datetime import datetime
 from app import app, db, lm, oid
-from app.forms import LoginForm
+from app.forms import LoginForm, EditForm
 from app.models import User, Trusted, Post
 from app.oauth import OAuthSignIn
 from flask import render_template, flash, redirect, g, url_for, session, request
@@ -91,6 +91,22 @@ def user(nickname):
     return render_template('user.html',
                            user=user,
                            posts=posts)
+
+@app.route('/edit', methods=['GET', 'POST'])
+@login_required
+def edit():
+    form = EditForm()
+    if form.validate_on_submit():
+        g.user.nickname = form.nickname.data
+        g.user.about_me = form.about_me.data
+        db.session.add(g.user)
+        db.session.commit()
+        flash('Your changes have been saved.')
+        return redirect(url_for('edit'))
+    else:
+        form.nickname.data = g.user.nickname
+        form.about_me.data = g.user.about_me
+    return render_template('edit.html', form=form)
 
 @oid.after_login
 def after_login(resp):
