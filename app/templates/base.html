@@ -55,7 +55,7 @@
                         <a href="#">О нас</a>
                     </li>
                     <li>
-                        <a href="#">Контакты</a>
+                        <a href="{{ url_for('contacts') }}">Контакты</a>
                     </li>
                         {% if g.user.is_authenticated() %}
                             <li>

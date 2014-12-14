@@ -121,6 +121,10 @@ def news():
         return redirect(url_for('news'))
     return render_template('news.html', form=form, posts=posts)
 
+@app.route('/contacts')
+def contacts():
+    return render_template('contacts.html', title="Home")
+
 @oid.after_login
 def after_login(resp):
     if resp.email is None or resp.email == "":
