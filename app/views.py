@@ -123,7 +123,11 @@ def news():
 
 @app.route('/contacts')
 def contacts():
-    return render_template('contacts.html', title="Home")
+    return render_template('contacts.html', title="Contacts")
+
+@app.route('/about_us')
+def about_us():
+    return render_template('about_us.html', title="About us")
 
 @oid.after_login
 def after_login(resp):

@@ -1,5 +1,5 @@
 from app import db, lm
-from coverage.backward import md5
+from hashlib import md5
 from flask.ext.login import UserMixin
 
 
