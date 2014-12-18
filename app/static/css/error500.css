@@ -1,0 +1,17 @@
+html {
+  background: url(/static/images/owl404500.png) no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+.assert {
+    text-indent: 10%;
+    color: #f5f5f5;
+    margin-top: 10%;
+}
+
+h1 {
+    font-size: 250%;
+}
