@@ -39,7 +39,7 @@ def oauth_callback(provider):
     if not current_user.is_anonymous():
         return redirect(url_for('index'))
     oauth = OAuthSignIn.get_provider(provider)
-    social_id, username, email = oauth.callback()
+    social_id, nickname, email = oauth.callback()
     if social_id is None:
         flash('Authentication failed.')
         return redirect(url_for('index'))
@@ -47,7 +47,8 @@ def oauth_callback(provider):
     if not user:
         trusted = Trusted.query.filter_by(email=email).first()
         if trusted:
-            user = User(social_id=social_id, nickname=username, email=email)
+            nickname = User.make_unique_nickname(nickname)
+            user = User(social_id=social_id, nickname=nickname, email=email)
             db.session.add(user)
             db.session.commit()
         else:
@@ -95,7 +96,7 @@ def user(nickname):
 @app.route('/edit', methods=['GET', 'POST'])
 @login_required
 def edit():
-    form = EditForm()
+    form = EditForm(g.user.nickname)
     if form.validate_on_submit():
         g.user.nickname = form.nickname.data
         g.user.about_me = form.about_me.data
