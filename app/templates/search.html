@@ -1,0 +1,31 @@
+<!-- extend core layout -->
+{% extends "core.html" %}
+
+{% block content %}
+    <table>
+        <tr>
+              <td>Поиск:</td>
+          </tr>
+          <tr>
+              <td>{{ form.text }}</td>
+          </tr>
+          <tr>
+              <td></td>
+              <td><input type="submit" value="Post"></td>
+          </tr>
+    </table>
+    <hr>
+    {% if results %}
+        {% for result in results %}
+            <table>
+                <tr valign="top">
+                    {% if result.author.avatar(50) %}
+                    <td><img src="{{ result.author.avatar(50) }}"></td><td><i>{{ result.author.nickname }} says:</i><br>{{ result.body }}</td>
+                    {% else %}
+                    <td><img src="{{ url_for('.static', filename='images/default_avatar_50.png') }}"></td><td><i>{{ result.author.nickname }} says:</i><br>{{ result.body }}</td>
+                    {% endif %}
+                </tr>
+            </table>
+        {% endfor %}
+    {% endif %}
+{% endblock %}

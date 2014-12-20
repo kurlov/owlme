@@ -1,6 +1,6 @@
 from datetime import datetime
 from app import app, db, lm, oid
-from app.forms import LoginForm, EditForm, PostForm
+from app.forms import LoginForm, EditForm, PostForm, SearchForm
 from app.models import User, Trusted, Post
 from app.oauth import OAuthSignIn
 from flask import render_template, flash, redirect, g, url_for, session, request
@@ -118,9 +118,16 @@ def news():
         post = Post(body=form.text, timestamp=datetime.utcnow(), user_id=g.user.id)
         db.session.add(post)
         db.session.commit()
-        flash('Your post has been posted .')
+        flash('Your post has been posted.')
         return redirect(url_for('news'))
     return render_template('news.html', form=form, posts=posts)
+
+@app.route('/search', methods=['GET', 'POST'])
+@login_required
+def search():
+    form = SearchForm()
+    results = []
+    return render_template('search.html', form=form, results=results)
 
 @app.route('/contacts')
 def contacts():
@@ -133,10 +140,6 @@ def about_us():
 @app.errorhandler(404)
 def not_found_error(error):
     return render_template('404.html'), 404
-
-@app.route('/error')
-def smt():
-    return render_template('500.html')
 
 @app.errorhandler(500)
 def internal_error(error):

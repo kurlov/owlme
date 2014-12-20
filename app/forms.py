@@ -29,3 +29,5 @@ class EditForm(Form):
 class PostForm(Form):
     text = TextAreaField('text', validators=[Length(min=0, max=140)])
 
+class SearchForm(Form):
+    text = StringField('text', validators=[DataRequired()])
