@@ -2,18 +2,10 @@
 {% extends "core.html" %}
 
 {% block content %}
-    <table>
-        <tr>
-              <td>Поиск:</td>
-          </tr>
-          <tr>
-              <td>{{ form.text }}</td>
-          </tr>
-          <tr>
-              <td></td>
-              <td><input type="submit" value="Post"></td>
-          </tr>
-    </table>
+    <form style="display: inline;" action="{{ url_for('search') }}" method="post" name="search">
+        {{ g.search_form.hidden_tag() }}{{ g.search_form.text(size=20) }}
+        <input type="submit" value="Поиск">
+    </form>
     <hr>
     {% if results %}
         {% for result in results %}

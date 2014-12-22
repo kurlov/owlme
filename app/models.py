@@ -1,9 +1,18 @@
-from app import db, lm
+from app import db, lm, app
 from hashlib import md5
 from flask.ext.login import UserMixin
 
+import sys #Unfortunately, whooshalchemy has a bug in python 3, so sad :(
+if sys.version_info >= (3, 0):
+    enable_search = False
+else:
+    enable_search = True
+    import flask.ext.whooshalchemy as whooshalchemy
+
 
 class User(UserMixin, db.Model):
+    __searchable__ = ['nickname']
+
     id = db.Column(db.Integer, primary_key=True)
     social_id = db.Column(db.String(64), nullable=False, unique=True)   # ids for OAuth
     nickname = db.Column(db.String(64), index=True, unique=True)
@@ -61,3 +70,6 @@ class Trusted(db.Model):
 
     def __repr__(self):
         return self.email
+
+if enable_search:
+    whooshalchemy.whoosh_index(app, User)

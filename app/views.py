@@ -3,6 +3,7 @@ from app import app, db, lm, oid
 from app.forms import LoginForm, EditForm, PostForm, SearchForm
 from app.models import User, Trusted, Post
 from app.oauth import OAuthSignIn
+from config import MAX_SEARCH_RESULTS
 from flask import render_template, flash, redirect, g, url_for, session, request
 from flask.ext.login import login_user, current_user, logout_user, login_required
 
@@ -75,6 +76,7 @@ def before_request():
         g.user.last_seen = datetime.utcnow()
         db.session.add(g.user)
         db.session.commit()
+        g.search_form = SearchForm()
 
 @app.route('/user/<nickname>')
 @login_required
@@ -125,9 +127,11 @@ def news():
 @app.route('/search', methods=['GET', 'POST'])
 @login_required
 def search():
-    form = SearchForm()
-    results = []
-    return render_template('search.html', form=form, results=results)
+    if g.search_form.validate_on_submit():
+        query=g.search_form.text.data
+        results = User.query.whoosh_search(query, MAX_SEARCH_RESULTS).all()
+        return redirect(url_for('search', results=results))
+    return render_template('search.html')
 
 @app.route('/contacts')
 def contacts():
