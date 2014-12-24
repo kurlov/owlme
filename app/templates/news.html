@@ -2,18 +2,10 @@
 {% extends "core.html" %}
 
 {% block content %}
-    <table>
-        <tr>
-              <td>Что у Вас нового?:</td>
-          </tr>
-          <tr>
-              <td>{{ form.text(cols=32, rows=4) }}</td>
-          </tr>
-          <tr>
-              <td></td>
-              <td><input type="submit" value="Post"></td>
-          </tr>
-    </table>
+    <form style="display: inline;" action="{{ url_for('news') }}" method="post" name="news">
+        {{ form.hidden_tag() }}{{ form.text(cols=32, rows=4) }}
+        <input type="submit" value="Написать">
+    </form>
     <hr>
     {% if posts %}
         {% for post in posts %}
