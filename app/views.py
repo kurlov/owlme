@@ -117,10 +117,9 @@ def news():
     form = PostForm()
     posts = Post.query.all()
     if form.validate_on_submit():
-        post = Post(body=form.text, timestamp=datetime.utcnow(), user_id=g.user.id)
+        post = Post(body=form.text.data, timestamp=datetime.utcnow(), author=g.user)
         db.session.add(post)
         db.session.commit()
-        flash('Your post has been posted.')
         return redirect(url_for('news'))
     return render_template('news.html', form=form, posts=posts)
 

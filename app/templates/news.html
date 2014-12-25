@@ -17,6 +17,7 @@
                     <td><img src="{{ url_for('.static', filename='images/default_avatar_50.png') }}"></td><td><i>{{ post.author.nickname }} says:</i><br>{{ post.body }}</td>
                     {% endif %}
                 </tr>
+            <hr>
             </table>
         {% endfor %}
     {% endif %}
