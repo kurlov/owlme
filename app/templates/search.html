@@ -11,10 +11,10 @@
         {% for result in results %}
             <table>
                 <tr valign="top">
-                    {% if result.author.avatar(50) %}
-                    <td><img src="{{ result.author.avatar(50) }}"></td><td><i>{{ result.author.nickname }} says:</i><br>{{ result.body }}</td>
+                    {% if result.avatar(50) %}
+                    <td><a href="{{ url_for('user', nickname=result.nickname) }}"> <img src="{{ result.avatar(50) }}">{{ result.nickname }}</a></td>
                     {% else %}
-                    <td><img src="{{ url_for('.static', filename='images/default_avatar_50.png') }}"></td><td><i>{{ result.author.nickname }} says:</i><br>{{ result.body }}</td>
+                    <td><img src="{{ url_for('.static', filename='images/default_avatar_50.png') }}"></td><td><i>{{ result.nickname }}</i></td>
                     {% endif %}
                 </tr>
             </table>

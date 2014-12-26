@@ -126,11 +126,12 @@ def news():
 @app.route('/search', methods=['GET', 'POST'])
 @login_required
 def search():
+    results = []
     if g.search_form.validate_on_submit():
         query=g.search_form.text.data
         results = User.query.whoosh_search(query, MAX_SEARCH_RESULTS).all()
-        return redirect(url_for('search', results=results))
-    return render_template('search.html')
+    return render_template('search.html',
+                            results=results)
 
 @app.route('/contacts')
 def contacts():
