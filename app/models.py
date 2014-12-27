@@ -52,7 +52,7 @@ class User(UserMixin, db.Model):
         return new_nickname
 
     def __repr__(self):
-        return '<User %r>' % (self.nickname)
+        return '<User %r email %r>' % (self.nickname, self.email)
 
 class Post(db.Model):
     id = db.Column(db.Integer, primary_key=True)

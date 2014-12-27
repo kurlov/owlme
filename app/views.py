@@ -95,6 +95,13 @@ def user(nickname):
                            user=user,
                            posts=posts)
 
+@app.route('/map')
+@login_required
+def map():
+    coords = [[56.849579, 60.647686]]
+    return render_template('map.html',
+                           coords=coords)
+
 @app.route('/edit', methods=['GET', 'POST'])
 @login_required
 def edit():
