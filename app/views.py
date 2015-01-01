@@ -84,6 +84,7 @@ def user(nickname):
 @app.route('/map')
 @login_required
 def map():
+	coords = []
     coords = [[56.849579, 60.647686]]
     return render_template('map.html',
                            coords=coords)
