@@ -69,10 +69,6 @@ def before_request():
 def user(nickname):
     user = User.query.filter_by(nickname=nickname).first()
     posts = Post.query.all()
-    posts = [
-        {'author': user, 'body': 'Test post #1'},
-        {'author': user, 'body': 'Test post #2'}
-    ]
     if user == None:
         flash('User %s not found.' % nickname)
         return redirect(url_for('index'))
@@ -84,7 +80,6 @@ def user(nickname):
 @app.route('/map')
 @login_required
 def map():
-	coords = []
     coords = [[56.849579, 60.647686]]
     return render_template('map.html',
                            coords=coords)
