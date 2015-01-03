@@ -1,5 +1,5 @@
 from datetime import datetime
-from app import app, db, lm, oid
+from app import app, db, lm
 from app.forms import LoginForm, EditForm, PostForm, SearchForm
 from app.models import User, Trusted, Post
 from app.oauth import OAuthSignIn
@@ -72,7 +72,6 @@ def user(nickname):
     if user == None:
         flash('User %s not found.' % nickname)
         return redirect(url_for('index'))
-
     return render_template('user.html',
                            user=user,
                            posts=posts)
