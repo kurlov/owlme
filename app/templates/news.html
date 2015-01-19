@@ -1,6 +1,6 @@
 <!-- extend core layout -->
 {% extends "core.html" %}
-
+<!-- should rewrite it -->
 {% block content %}
     <form style="display: inline;" action="{{ url_for('news') }}" method="post" name="news">
         {{ form.hidden_tag() }}{{ form.text(cols=32, rows=4) }}
